@@ -20,6 +20,9 @@ const nextConfig = (phase) => {
       CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
       CONTENTFUL_ACCESS_KEY: process.env.CONTENTFUL_ACCESS_KEY,
       CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT,
+      CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN:
+        process.env.CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN,
+      CONTENTFUL_GRAPHQL_URL: process.env.CONTENTFUL_GRAPHQL_URL,
     },
     images: {
       domains: ["images.ctfassets.net"], //Domain of image host

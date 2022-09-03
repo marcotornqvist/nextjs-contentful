@@ -45,10 +45,7 @@ export interface IBlogFields {
   body: Document;
 
   /** Author */
-  author: Entry<{ [fieldId: string]: unknown }>;
-
-  /** Categories */
-  categories?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+  author: IAuthor;
 }
 
 export interface IBlog extends Entry<IBlogFields> {

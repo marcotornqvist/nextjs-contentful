@@ -1,3 +1,5 @@
+KEEP IN MIND: https://www.contentful.com/developers/docs/references/graphql/#/introduction/query-complexity-limits
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

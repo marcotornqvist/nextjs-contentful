@@ -1,7 +1,7 @@
 import { styled } from "@stitches/react";
 import { FC } from "react";
 import { Post } from "../types";
-import { violet, whiteA } from "@radix-ui/colors";
+import { violet } from "@radix-ui/colors";
 
 const StyledPost = styled("div", {
   display: "flex",

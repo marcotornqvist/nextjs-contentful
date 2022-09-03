@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { ICategoryFields } from "../../@types/generated/contentful";
-import { client } from "../../utils/contentfulClient";
+import { ICategoryFields } from "@generated/contentful";
+import { client } from "@utils/contentfulClient";
 
 const Blog = () => {
   useEffect(() => {

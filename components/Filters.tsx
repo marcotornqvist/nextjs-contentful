@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { styled } from "@stitches/react";
 import { violet, blackA } from "@radix-ui/colors";
-import { ICategoryFields } from "../@types/generated/contentful";
+import { ICategoryFields } from "@generated/contentful";
 import { ICategoryState } from "../types";
-import { client } from "../utils/contentfulClient";
+import { client } from "@utils/contentfulClient";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import { Tag } from "contentful";
 
 const StyledGroup = styled(RadioGroupPrimitive.Root, {
   display: "flex",
@@ -56,33 +57,17 @@ const Label = styled("label", {
 });
 
 interface IProps {
-  setSelectionId: (selectionId: string | undefined) => void;
+  setSelectedTag: (selectedTag: string | undefined) => void;
 }
 
-const Filters: FC<IProps> = ({ setSelectionId }) => {
-  const [categories, setCategories] = useState<ICategoryState[]>([]);
-  // const router = useRouter();
-  // const [isReady, setIsReady] = useState(false);
-
-  // useEffect(() => {
-  //   if (router.isReady) {
-  //     // Code using query
-  //     setIsReady(true);
-  //   }
-  // }, [router.isReady]);
+const Filters: FC<IProps> = ({ setSelectedTag }) => {
+  const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const result = await client.getEntries<ICategoryFields>({
-        content_type: "category",
-      });
+      const result = await client.getTags();
 
-      const arrayOfCategories = result.items.map((item) => ({
-        title: item.fields.title,
-        id: item.sys.id,
-      }));
-
-      setCategories(arrayOfCategories);
+      setTags(result.items);
     };
 
     fetchCategories();
@@ -94,7 +79,7 @@ const Filters: FC<IProps> = ({ setSelectionId }) => {
         defaultValue="Default"
         aria-label="View density"
         onValueChange={(id: string) =>
-          setSelectionId(id !== "Default" ? id : undefined)
+          setSelectedTag(id !== "Default" ? id : undefined)
         }
       >
         <Flex css={{ margin: "0 2rem 0 0", alignItems: "center" }}>
@@ -103,15 +88,15 @@ const Filters: FC<IProps> = ({ setSelectionId }) => {
           </RadioGroupRadio>
           <Label htmlFor="default">Default</Label>
         </Flex>
-        {categories.map((item) => (
+        {tags.map((item) => (
           <Flex
-            key={item.id}
+            key={item.sys.id}
             css={{ margin: "0 2rem 0 0", alignItems: "center" }}
           >
-            <RadioGroupRadio value={item.id} id={item.title}>
+            <RadioGroupRadio value={item.sys.id} id={item.name}>
               <RadioGroupIndicator />
             </RadioGroupRadio>
-            <Label htmlFor={item.title}>{item.title}</Label>
+            <Label htmlFor={item.name}>{item.name}</Label>
           </Flex>
         ))}
       </RadioGroup>

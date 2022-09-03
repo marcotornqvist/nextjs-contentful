@@ -1,11 +1,11 @@
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import { styled } from "@stitches/react";
-import { IBlogFields } from "../@types/generated/contentful";
-import { client } from "../utils/contentfulClient";
+import { IBlogFields } from "@generated/contentful";
+import { client } from "@utils/contentfulClient";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Filters from "../components/Filters";
-import Search from "../components/Search";
+import Filters from "@components/Filters";
+import Search from "@components/Search";
 
 const Wrapper = styled("div", {
   alignItems: "center",
@@ -60,7 +60,9 @@ interface IBlog {
 const Landing: NextPage = () => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [selectionId, setSelectionId] = useState<string | undefined>();
+  const [selectedTag, setSelectedTag] = useState<string | undefined>();
+
+  // TODO: Multi-selection filters for tags
 
   useEffect(() => {
     // https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/links-to-entry
@@ -69,10 +71,12 @@ const Landing: NextPage = () => {
       const result = await client.getEntries<IBlogFields>({
         content_type: "blog",
         "fields.title[match]": searchText,
-        links_to_entry: selectionId, // search by reference (entry)
+        // links_to_entry: selectedTag, FIXME: rememember to fix this so that we can fetch blogs by tags
         // limit: 1, // returns 1 result
         // skip: 100 // skips the 100 first
       });
+
+      console.log(result);
 
       const arrayOfBlogs: IBlog[] = result.items.map((item) => ({
         id: item.sys.id,
@@ -89,14 +93,14 @@ const Landing: NextPage = () => {
     };
 
     fetchBlogs();
-  }, [searchText, selectionId]);
+  }, [searchText, selectedTag]);
 
   return (
     <LandingSection>
       <Container>
         <Wrapper>
           <Search searchText={searchText} setSearchText={setSearchText} />
-          <Filters setSelectionId={setSelectionId} />
+          <Filters setSelectedTag={setSelectedTag} />
         </Wrapper>
         {blogs.map((item) => (
           <div key={item.id} style={{ marginBottom: 16 }}>
