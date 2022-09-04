@@ -1,12 +1,10 @@
+import { Tag } from "contentful";
 import { ICategoryFields } from "./@types/generated/contentful";
 
-export type Post = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-};
-
-export interface ICategoryState extends ICategoryFields{
+export interface ICategoryState extends ICategoryFields {
   id: string;
+}
+
+export interface ICategory extends Tag {
+  selected: boolean;
 }

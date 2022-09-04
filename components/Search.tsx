@@ -32,11 +32,11 @@ const Input = styled("input", {
 });
 
 interface IProps {
-  searchText: string;
-  setSearchText: (searchText: string) => void;
+  search: string;
+  setSearch: (search: string) => void;
 }
 
-const Search: FC<IProps> = ({ searchText, setSearchText }) => {
+const Search: FC<IProps> = ({ search, setSearch }) => {
   return (
     <Flex
       css={{ marginBottom: "1.5rem", flexWrap: "wrap", alignItems: "center" }}
@@ -47,8 +47,8 @@ const Search: FC<IProps> = ({ searchText, setSearchText }) => {
       <Input
         type="text"
         id="search"
-        onChange={(e) => setSearchText(e.target.value)}
-        value={searchText}
+        onChange={(e) => setSearch(e.target.value)}
+        value={search}
       />
     </Flex>
   );

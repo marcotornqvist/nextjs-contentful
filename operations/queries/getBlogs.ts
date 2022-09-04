@@ -1,18 +1,18 @@
 export const getBlogsQuery = `
-  query GET_BLOGS($search: String, $tags: [String], $id: String!) {
+  query GET_BLOGS($search: String, $selectedCategories: [String], $id: String!) {
     blogCollection(where: {
       OR: [
         {
           contentfulMetadata: {
             tags: {
-              id_contains_some: $tags
+              id_contains_some: $selectedCategories
             }
           }
         },
         {
           contentfulMetadata: {
             tags: {
-              id_contains_all: $tags
+              id_contains_all: $selectedCategories
             }
           }
         }

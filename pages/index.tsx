@@ -4,7 +4,7 @@ import { IBlogFields } from "@generated/contentful";
 import { client } from "@utils/contentfulClient";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Filters from "@components/Filters";
+import Filters from "@components/Selections";
 import Search from "@components/Search";
 
 const Wrapper = styled("div", {

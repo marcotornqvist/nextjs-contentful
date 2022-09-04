@@ -2,10 +2,13 @@ import { getBlogsQuery } from "operations/queries/getBlogs";
 import { fetcher } from "@utils/graphql-request-client";
 import { NextPage } from "next";
 import { styled } from "@stitches/react";
+import { useEffect, useMemo, useState } from "react";
+import { client } from "@utils/contentfulClient";
+import { ICategory } from "types";
+import Image from "next/image";
 import useSWR from "swr";
 import Search from "@components/Search";
-import Filters from "@components/Filters";
-import { useState } from "react";
+import Selections from "@components/Selections";
 
 const Wrapper = styled("div", {
   alignItems: "center",
@@ -22,48 +25,66 @@ export const Container = styled("div", {
 });
 
 // KEEP IN MIND: https://www.contentful.com/developers/docs/references/graphql/#/introduction/query-complexity-limits
+// Source on why items can't be fetched any other way than this: https://www.contentful.com/blog/2021/06/15/filter-entries-by-linked-references-in-graphql-api/
 
 interface IVariables {
-  tags: string[];
   search: string;
+  selectedCategories: string[];
   id: string;
 }
 
-// TODO: Multi-selection filters for tags
-// TODO: Do the same in the REST version
-
 const GraphqlVersion: NextPage = () => {
-  const [searchText, setSearchText] = useState("");
-  const [selectedTag, setSelectedTag] = useState<string | undefined>();
-  const tags = ["art", "gaming"];
-  const variables: IVariables = {
-    // tags: selectedTag ? [selectedTag] : [],
-    tags,
-    search: "sport",
-    id: "1mdvXZuj5eWZZHGFeUftvb",
-  };
+  const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const id = "1mdvXZuj5eWZZHGFeUftvb";
 
-  // Source on why items can't be fetched any other way than this: https://www.contentful.com/blog/2021/06/15/filter-entries-by-linked-references-in-graphql-api/
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const result = await client.getTags();
 
-  const { data, error } = useSWR<any, any, [string, IVariables]>(
-    [getBlogsQuery, variables],
-    fetcher
+      const categoriesWithSelectedProperty: ICategory[] = result.items.map(
+        (item) => ({
+          ...item,
+          selected: false,
+        })
+      );
+
+      setCategories(categoriesWithSelectedProperty);
+    };
+
+    fetchCategories();
+  }, []);
+
+  // Returns all categories with selected value of true
+  const selectedCategories: string[] = useMemo(
+    () =>
+      categories
+        .map((item) => (item.selected === true ? item.sys.id : undefined))
+        .filter((el): el is string => el !== undefined),
+    [categories]
   );
 
-  console.log(data);
+  const { data, error } = useSWR<any, any, [string, IVariables]>(
+    [getBlogsQuery, { search, selectedCategories, id }],
+    fetcher
+  );
 
   return (
     <LandingSection>
       <Container>
         <Wrapper>
-          <Search searchText={searchText} setSearchText={setSearchText} />
-          <Filters setSelectedTag={setSelectedTag} />
+          <Search search={search} setSearch={setSearch} />
+          <Selections
+            categories={categories}
+            setCategories={setCategories}
+            selectedCategories={selectedCategories}
+          />
         </Wrapper>
-        {/* {blogs.map((item) => (
-          <div key={item.id} style={{ marginBottom: 16 }}>
+        {data?.blogCollection.items.map((item: any) => (
+          <div key={item.sys.id} style={{ marginBottom: 16 }}>
             <h3 style={{ marginBottom: 16 }}>{item.title}</h3>
             <Image
-              src={"https:" + item.thumbnail}
+              src={item.thumbnail.url}
               alt="Picture of the author"
               layout="responsive"
               width={500}
@@ -71,7 +92,7 @@ const GraphqlVersion: NextPage = () => {
               priority
             />
           </div>
-        ))} */}
+        ))}
       </Container>
     </LandingSection>
   );
