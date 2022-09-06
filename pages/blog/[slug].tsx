@@ -9,14 +9,11 @@ import useSWR from "swr";
 
 const Blog = () => {
   const { query } = useRouter();
-  console.log(query.slug);
 
   const { data, error } = useSWR<
     Get_Single_BlogQuery,
     Get_Single_BlogQueryVariables
   >([Get_Single_BlogDocument, { slug: query.slug }], fetcher);
-
-  console.log(data);
 
   return (
     <div>

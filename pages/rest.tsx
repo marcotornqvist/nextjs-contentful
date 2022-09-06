@@ -7,6 +7,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import Link from "next/link";
 import Search from "@components/landing/Search";
+import { fetcher } from "@utils/rest-fetcher";
 
 const Wrapper = styled("div", {
   alignItems: "center",
@@ -25,19 +26,7 @@ export const Container = styled("div", {
 const Landing: NextPage = () => {
   const [search, setSearch] = useState("");
 
-  const fetcher = async (url: string, variables: any) => {
-    const result = await client.getEntries<any>({
-      content_type: "blog",
-      "fields.title[match]": search,
-      // "metadata.tags.sys.id[in]": selectedCategories.join(","),
-      // limit: 1, // returns 1 result
-      // skip: 100 // skips the 100 first
-    });
-
-    return result;
-  };
-
-  const { data } = useSWR([null, { search }], fetcher);
+  const { data } = useSWR({ url: null, search }, fetcher);
 
   return (
     <LandingSection>
