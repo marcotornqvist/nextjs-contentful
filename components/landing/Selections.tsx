@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ICategory } from "../types";
+import { ICategory } from "../../types";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { violet, blackA } from "@radix-ui/colors";
 import { styled } from "@stitches/react";

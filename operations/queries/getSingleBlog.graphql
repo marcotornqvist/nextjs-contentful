@@ -1,0 +1,29 @@
+query GET_SINGLE_BLOG($slug: String!) {
+  blogCollection(where: { slug: $slug }) {
+    items {
+      title
+      slug
+      test
+      thumbnail {
+        title
+        url
+        description
+      }
+      author {
+        name
+        email
+        profileImage {
+          title
+          url
+          description
+        }
+        sys {
+          id
+        }
+      }
+      sys {
+        id
+      }
+    }
+  }
+}

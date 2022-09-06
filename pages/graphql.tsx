@@ -1,14 +1,18 @@
-import { getBlogsQuery } from "operations/queries/getBlogs";
 import { fetcher } from "@utils/graphql-request-client";
 import { NextPage } from "next";
 import { styled } from "@stitches/react";
 import { useEffect, useMemo, useState } from "react";
 import { client } from "@utils/contentfulClient";
 import { ICategory } from "types";
-import Image from "next/image";
 import useSWR from "swr";
-import Search from "@components/Search";
-import Selections from "@components/Selections";
+import Search from "@components/landing/Search";
+import Selections from "@components/landing/Selections";
+import {
+  Get_BlogsDocument,
+  Get_BlogsQuery,
+  Get_BlogsQueryVariables,
+} from "generated/graphql";
+import BlogItem from "@components/landing/BlogItem";
 
 const Wrapper = styled("div", {
   alignItems: "center",
@@ -27,16 +31,9 @@ export const Container = styled("div", {
 // KEEP IN MIND: https://www.contentful.com/developers/docs/references/graphql/#/introduction/query-complexity-limits
 // Source on why items can't be fetched any other way than this: https://www.contentful.com/blog/2021/06/15/filter-entries-by-linked-references-in-graphql-api/
 
-interface IVariables {
-  search: string;
-  selectedCategories: string[];
-  id: string;
-}
-
-const GraphqlVersion: NextPage = () => {
+const Graphql: NextPage = () => {
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const id = "1mdvXZuj5eWZZHGFeUftvb";
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -64,8 +61,8 @@ const GraphqlVersion: NextPage = () => {
     [categories]
   );
 
-  const { data, error } = useSWR<any, any, [string, IVariables]>(
-    [getBlogsQuery, { search, selectedCategories, id }],
+  const { data, error } = useSWR<Get_BlogsQuery, Get_BlogsQueryVariables>(
+    [Get_BlogsDocument, { search, selectedCategories, title: "" }],
     fetcher
   );
 
@@ -80,22 +77,22 @@ const GraphqlVersion: NextPage = () => {
             selectedCategories={selectedCategories}
           />
         </Wrapper>
-        {data?.blogCollection.items.map((item: any) => (
-          <div key={item.sys.id} style={{ marginBottom: 16 }}>
-            <h3 style={{ marginBottom: 16 }}>{item.title}</h3>
-            <Image
-              src={item.thumbnail.url}
-              alt="Picture of the author"
-              layout="responsive"
-              width={500}
-              height={365}
-              priority
-            />
-          </div>
-        ))}
+        {data?.blogCollection?.items.map(
+          (item) =>
+            item && (
+              <BlogItem
+                key={item.sys.id}
+                title={item.title}
+                slug={item.slug}
+                thumbnail={item.thumbnail}
+                author={item.author}
+                sys={item.sys}
+              />
+            )
+        )}
       </Container>
     </LandingSection>
   );
 };
 
-export default GraphqlVersion;
+export default Graphql;

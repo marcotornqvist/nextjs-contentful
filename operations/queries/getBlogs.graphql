@@ -1,0 +1,43 @@
+query GET_BLOGS($search: String, $selectedCategories: [String]) {
+  blogCollection(
+    where: {
+      OR: [
+        {
+          contentfulMetadata: {
+            tags: { id_contains_some: $selectedCategories }
+          }
+        }
+        {
+          contentfulMetadata: { tags: { id_contains_all: $selectedCategories } }
+        }
+      ]
+      title_contains: $search
+    }
+  ) {
+    items {
+      title
+      slug
+      test
+      thumbnail {
+        title
+        url
+        description
+      }
+      author {
+        name
+        email
+        profileImage {
+          title
+          url
+          description
+        }
+        sys {
+          id
+        }
+      }
+      sys {
+        id
+      }
+    }
+  }
+}
