@@ -22,8 +22,6 @@ export const Container = styled("div", {
   maxWidth: 768,
 });
 
-// https://www.youtube.com/watch?v=MbEIGh5cWWI
-
 const Landing: NextPage = () => {
   const [search, setSearch] = useState("");
 
@@ -39,10 +37,7 @@ const Landing: NextPage = () => {
     return result;
   };
 
-  const { data } = useSWR(
-    ["https://jsonplaceholder.typicode.com/posts", { search }],
-    fetcher
-  );
+  const { data } = useSWR([null, { search }], fetcher);
 
   return (
     <LandingSection>
@@ -50,29 +45,25 @@ const Landing: NextPage = () => {
         <Wrapper>
           <Search search={search} setSearch={setSearch} />
         </Wrapper>
-        {data?.items.map((item: any) => {
-          if (item) {
-            return (
-              <StyledBlog key={item.sys.id} style={{ marginBottom: "1.5rem" }}>
-                {item.fields.thumbnail.fields.file.url && (
-                  <Image
-                    src={"https:" + item.fields.thumbnail.fields.file.url}
-                    alt="thumbnail"
-                    layout="responsive"
-                    width={500}
-                    height={365}
-                    priority
-                  />
-                )}
-                <Link href={`/blog/${item.fields.slug}`}>
-                  <a>
-                    <h3>{item.fields.title}</h3>
-                  </a>
-                </Link>
-              </StyledBlog>
-            );
-          }
-        })}
+        {data?.items.map((item: any) => (
+          <StyledBlog key={item.sys.id} style={{ marginBottom: "1.5rem" }}>
+            {item.fields.thumbnail.fields.file.url && (
+              <Image
+                src={"https:" + item.fields.thumbnail.fields.file.url}
+                alt="thumbnail"
+                layout="responsive"
+                width={500}
+                height={365}
+                priority
+              />
+            )}
+            <Link href={`/blog/${item.fields.slug}`}>
+              <a>
+                <h3>{item.fields.title}</h3>
+              </a>
+            </Link>
+          </StyledBlog>
+        ))}
       </Container>
     </LandingSection>
   );
