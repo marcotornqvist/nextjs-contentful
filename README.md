@@ -14,7 +14,7 @@ npm install
 
 cp .env.example .env
 
-npm run dev # will also generate types from
+npm run dev # will also generate types with codegen
 ```
 
 Open [http://localhost:3000/graphql](http://localhost:3000/graphql) for GraphQL version.
