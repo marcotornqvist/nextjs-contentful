@@ -1,14 +1,13 @@
-import { client, fetcher } from "@utils/graphql-request-client";
-import { randomNumber } from "@utils/randomNumber";
+import { client } from "@utils/graphql-request-client";
 import {
-  Get_Blog_PathsDocument,
-  Get_Blog_PathsQuery,
   Get_Single_BlogDocument,
   Get_Single_BlogQuery,
   Get_Single_BlogQueryVariables,
 } from "generated/graphql";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { FC } from "react";
+import { Container } from "pages";
+import generateRandomNumber from "@utils/generateRandomNumber";
 
 // https://tsh.io/blog/ssr-vs-ssg-in-nextjs/#:~:text=When%20to%20use%20SSG%3F,or%20provide%20excellent%20SEO%20capabilities.
 // https://swr.vercel.app/docs/with-nextjs
@@ -27,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       data,
-      randomNumber: randomNumber(),
+      randomNumber: generateRandomNumber(),
     },
   };
 };
@@ -40,9 +39,11 @@ interface IProps {
 const BlogSSR: FC<IProps> = ({ data, randomNumber }) => {
   return (
     <div>
-      <h1>{randomNumber}</h1>
-      <br />
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <Container>
+        <h1>{randomNumber}</h1>
+        <br />
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </Container>
     </div>
   );
 };

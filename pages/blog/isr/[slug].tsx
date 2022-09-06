@@ -1,5 +1,4 @@
 import { client } from "@utils/graphql-request-client";
-import { randomNumber } from "@utils/randomNumber";
 import {
   Get_Blog_PathsDocument,
   Get_Blog_PathsQuery,
@@ -9,6 +8,8 @@ import {
 } from "generated/graphql";
 import { GetStaticProps } from "next";
 import { FC } from "react";
+import generateRandomNumber from "@utils/generateRandomNumber";
+import { Container } from "pages";
 
 // https://tsh.io/blog/ssr-vs-ssg-in-nextjs/#:~:text=When%20to%20use%20SSG%3F,or%20provide%20excellent%20SEO%20capabilities.
 // https://swr.vercel.app/docs/with-nextjs
@@ -48,7 +49,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       data,
-      randomNumber: randomNumber(),
+      randomNumber: generateRandomNumber(),
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
@@ -65,9 +66,11 @@ interface IProps {
 const BlogISR: FC<IProps> = ({ data, randomNumber }) => {
   return (
     <div>
-      <h1>{randomNumber}</h1>
-      <br />
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <Container>
+        <h1>{randomNumber}</h1>
+        <br />
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </Container>
     </div>
   );
 };

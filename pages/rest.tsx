@@ -3,6 +3,9 @@ import { styled } from "@stitches/react";
 import { useState } from "react";
 import { StyledBlog } from "@components/landing/BlogItem";
 import { fetcher } from "@utils/rest-fetcher";
+import { Container } from "pages";
+import { client } from "@utils/contentfulClient";
+import { StyledList, StyledListItem } from "@components/layout/Navbar";
 import Image from "next/image";
 import useSWR from "swr";
 import Link from "next/link";
@@ -17,15 +20,23 @@ const LandingSection = styled("section", {
   padding: "1.5rem 0",
 });
 
-export const Container = styled("div", {
-  margin: "0 auto",
-  maxWidth: 768,
-});
-
 const Landing: NextPage = () => {
   const [search, setSearch] = useState("");
 
-  const { data } = useSWR({ url: null, search }, fetcher);
+  const { data } = useSWR({ url: null, search }, async () => {
+    const result = await client.getEntries<any>({
+      content_type: "blog",
+      "fields.title[match]": search,
+      // "metadata.tags.sys.id[in]": selectedCategories.join(","),
+      // limit: 1, // returns 1 result
+      // skip: 100 // skips the 100 first
+    });
+
+    return result;
+  });
+
+  // Using fetcher function
+  // const { data } = useSWR({ url: null, search }, fetcher);
 
   return (
     <LandingSection>
@@ -45,11 +56,31 @@ const Landing: NextPage = () => {
                 priority
               />
             )}
-            <Link href={`/blog/static/${item.fields.slug}`}>
-              <a>
-                <h3>{item.fields.title}</h3>
-              </a>
-            </Link>
+            <h3 style={{ paddingTop: "1rem", marginBottom: "1rem" }}>
+              {item.fields.title}
+            </h3>
+            <StyledList>
+              <StyledListItem>
+                <Link href={`/blog/csr/${item.fields.slug}`}>
+                  <a>CSR</a>
+                </Link>
+              </StyledListItem>
+              <StyledListItem>
+                <Link href={`/blog/ssg/${item.fields.slug}`}>
+                  <a>SSG</a>
+                </Link>
+              </StyledListItem>
+              <StyledListItem>
+                <Link href={`/blog/csr/${item.fields.slug}`}>
+                  <a>CSR</a>
+                </Link>
+              </StyledListItem>
+              <StyledListItem>
+                <Link href={`/blog/ssr/${item.fields.slug}`}>
+                  <a>SSR</a>
+                </Link>
+              </StyledListItem>
+            </StyledList>
           </StyledBlog>
         ))}
       </Container>
