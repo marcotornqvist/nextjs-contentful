@@ -1,13 +1,12 @@
 import { NextPage } from "next";
 import { styled } from "@stitches/react";
-import { client } from "@utils/contentfulClient";
 import { useState } from "react";
 import { StyledBlog } from "@components/landing/BlogItem";
+import { fetcher } from "@utils/rest-fetcher";
 import Image from "next/image";
 import useSWR from "swr";
 import Link from "next/link";
 import Search from "@components/landing/Search";
-import { fetcher } from "@utils/rest-fetcher";
 
 const Wrapper = styled("div", {
   alignItems: "center",
@@ -46,7 +45,7 @@ const Landing: NextPage = () => {
                 priority
               />
             )}
-            <Link href={`/blog/${item.fields.slug}`}>
+            <Link href={`/blog/static/${item.fields.slug}`}>
               <a>
                 <h3>{item.fields.title}</h3>
               </a>

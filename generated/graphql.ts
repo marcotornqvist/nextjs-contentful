@@ -775,6 +775,11 @@ export type CfAuthorNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
+export type Get_Blog_PathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Get_Blog_PathsQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', slug?: string | null } | null> } | null };
+
 export type Get_BlogsQueryVariables = Exact<{
   search?: InputMaybe<Scalars['String']>;
   selectedCategories?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -791,6 +796,15 @@ export type Get_Single_BlogQueryVariables = Exact<{
 export type Get_Single_BlogQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', title?: string | null, slug?: string | null, test?: number | null, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null, description?: string | null } | null, author?: { __typename?: 'Author', name?: string | null, email?: string | null, profileImage?: { __typename?: 'Asset', title?: string | null, url?: string | null, description?: string | null } | null, sys: { __typename?: 'Sys', id: string } } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
 
 
+export const Get_Blog_PathsDocument = gql`
+    query GET_BLOG_PATHS {
+  blogCollection {
+    items {
+      slug
+    }
+  }
+}
+    `;
 export const Get_BlogsDocument = gql`
     query GET_BLOGS($search: String, $selectedCategories: [String]) {
   blogCollection(
@@ -863,6 +877,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    GET_BLOG_PATHS(variables?: Get_Blog_PathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<Get_Blog_PathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<Get_Blog_PathsQuery>(Get_Blog_PathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GET_BLOG_PATHS', 'query');
+    },
     GET_BLOGS(variables?: Get_BlogsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<Get_BlogsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<Get_BlogsQuery>(Get_BlogsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GET_BLOGS', 'query');
     },

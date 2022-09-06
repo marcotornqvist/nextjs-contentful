@@ -7,13 +7,13 @@ import {
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const Blog = () => {
+const BlogCSR = () => {
   const { query } = useRouter();
 
-  const { data, error } = useSWR<
-    Get_Single_BlogQuery,
-    Get_Single_BlogQueryVariables
-  >([Get_Single_BlogDocument, { slug: query.slug }], fetcher);
+  const { data } = useSWR<Get_Single_BlogQuery, Get_Single_BlogQueryVariables>(
+    [Get_Single_BlogDocument, { slug: query.slug }],
+    fetcher
+  );
 
   return (
     <div>
@@ -22,4 +22,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default BlogCSR;

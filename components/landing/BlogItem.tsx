@@ -6,10 +6,6 @@ import Link from "next/link";
 
 export const StyledBlog = styled("div", {});
 
-// Exports
-// export const PostGroup = StyledPost;
-// export const PostTitle = StyledTitle;
-
 type Props = NonNullable<
   NonNullable<Get_BlogsQuery["blogCollection"]>["items"][0]
 >;
@@ -27,7 +23,7 @@ const BlogItem: FC<Props> = ({ title, slug, thumbnail, author }) => {
           priority
         />
       )}
-      <Link href={`/blog/${slug}`}>
+      <Link href={`/blog/static/${slug}`}>
         <a>
           <h3>{title}</h3>
         </a>
