@@ -4,11 +4,14 @@ Comparison of REST & GraphQL using Contentful.
 
 ## Getting Started
 
+1. Install packages with "npm install"
 1. Move empty environment variables from .env.example to .env
 2. Fill the empty environment variable with the values from contentful
 3. Run the development server:
 
 ```bash
+npm install
+
 cp .env.example .env
 
 npm run dev # will also generate types from
