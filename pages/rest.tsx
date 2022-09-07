@@ -71,13 +71,13 @@ const Landing: NextPage = () => {
                 </Link>
               </StyledListItem>
               <StyledListItem>
-                <Link href={`/blog/csr/${item.fields.slug}`}>
-                  <a>CSR</a>
+                <Link href={`/blog/ssr/${item.fields.slug}`}>
+                  <a>SSR</a>
                 </Link>
               </StyledListItem>
               <StyledListItem>
-                <Link href={`/blog/ssr/${item.fields.slug}`}>
-                  <a>SSR</a>
+                <Link href={`/blog/isr/${item.fields.slug}`}>
+                  <a>ISR</a>
                 </Link>
               </StyledListItem>
             </StyledList>

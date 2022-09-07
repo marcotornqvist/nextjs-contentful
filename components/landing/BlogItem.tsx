@@ -37,13 +37,13 @@ const BlogItem: FC<Props> = ({ title, slug, thumbnail, author }) => {
           </Link>
         </StyledListItem>
         <StyledListItem>
-          <Link href={`/blog/csr/${slug}`}>
-            <a>CSR</a>
+          <Link href={`/blog/ssr/${slug}`}>
+            <a>SSR</a>
           </Link>
         </StyledListItem>
         <StyledListItem>
-          <Link href={`/blog/ssr/${slug}`}>
-            <a>SSR</a>
+          <Link href={`/blog/isr/${slug}`}>
+            <a>ISR</a>
           </Link>
         </StyledListItem>
       </StyledList>

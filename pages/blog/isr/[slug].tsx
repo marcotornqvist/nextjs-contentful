@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { client } from "@utils/graphql-request-client";
 import {
   Get_Blog_PathsDocument,
@@ -7,9 +8,8 @@ import {
   Get_Single_BlogQueryVariables,
 } from "generated/graphql";
 import { GetStaticProps } from "next";
-import { FC } from "react";
-import generateRandomNumber from "@utils/generateRandomNumber";
 import { Container } from "pages";
+import generateRandomNumber from "@utils/generateRandomNumber";
 
 // https://tsh.io/blog/ssr-vs-ssg-in-nextjs/#:~:text=When%20to%20use%20SSG%3F,or%20provide%20excellent%20SEO%20capabilities.
 // https://swr.vercel.app/docs/with-nextjs
@@ -31,7 +31,7 @@ export const getStaticPaths = async () => {
   // on-demand if the path doesn't exist.
   return {
     paths,
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
@@ -46,17 +46,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     >(Get_Single_BlogDocument, { slug });
   }
 
+  const randomNumber = generateRandomNumber();
+
   return {
     props: {
       data,
-      randomNumber: generateRandomNumber(),
+      randomNumber,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 5 seconds
-    revalidate: 5, // In seconds
+    revalidate: 10, // In seconds
   };
 };
+
+// TODO: Maybe implement "on demand revalidation" - https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation
 
 interface IProps {
   data: Get_Single_BlogQuery;
@@ -64,9 +68,15 @@ interface IProps {
 }
 
 const BlogISR: FC<IProps> = ({ data, randomNumber }) => {
+  function handleRevalidate() {
+    fetch("/api/revalidate");
+  }
   return (
     <div>
       <Container>
+        <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
+          Revalidate
+        </button>
         <h1>{randomNumber}</h1>
         <br />
         <pre>{JSON.stringify(data, null, 2)}</pre>
