@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import jsonList from "test.json";
+
+// https://www.lucecarter.co.uk/blog/troubleshooting-webhooks-in-contentful#verifying-the-custom-payload
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,6 +19,9 @@ export default async function handler(
   ) {
     return res.status(401).json({ message: "Invalid token" });
   }
+
+  // FIXME: Payload doesn't include slug when a post is unpublished or deleted. Archiving and then unpublishing works, which is not too optimal.
+  // FIXME: Make it so that getStaticPaths also revalidates when a post is created or deleted. Now getStaticPaths doesn't recognise new posts.
 
   try {
     // check that body is not empty

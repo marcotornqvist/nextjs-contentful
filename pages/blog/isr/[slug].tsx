@@ -33,7 +33,8 @@ export const getStaticPaths = async () => {
   // on-demand if the path doesn't exist.
   return {
     paths,
-    fallback: false,
+    // fallback: false,
+    fallback: "blocking",
   };
 };
 
