@@ -29,11 +29,14 @@ export default async function handler(
     //   return;
     // }
 
-    console.log("request in console: " + req);
+    console.log(req);
+    console.log("----------");
     const bodyParsed = JSON.parse(req.body);
     console.log("bodyParsed in console: " + req.body);
+    console.log("----------");
     const slugParsed = bodyParsed.slug;
     console.log("slugParsed in console: " + slugParsed);
+    console.log("----------");
 
     if (slugParsed) {
       console.log("inside");
