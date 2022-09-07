@@ -29,11 +29,17 @@ export default async function handler(
     //   return;
     // }
 
-    console.log(req);
-    const slug = JSON.parse(req.body.slug);
+    console.log("body in console: " + req.body);
+    const bodyParsed = JSON.parse(req.body);
+    console.log("bodyParsed in console: " + req.body);
+    const slug = req.body.slug;
+    console.log("slug in console: " + slug);
+    const slugParsed = bodyParsed.slug;
+    console.log("slugParsed in console: " + slugParsed);
 
-    if (slug) {
-      await res.revalidate(`/blog/isr/${slug}`);
+    if (slug || slugParsed) {
+      console.log("inside");
+      await res.revalidate(`/blog/isr/${slug || slugParsed}`);
       return res.json({ revalidated: true });
     }
   } catch (err) {
