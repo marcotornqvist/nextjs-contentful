@@ -4,7 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req);
+  console.log(req.body.slug);
 
   // check for the POST request
   if (req.method !== "POST") {
@@ -22,20 +22,21 @@ export default async function handler(
 
   try {
     // check that body is not empty
-    // if (!body) {
-    //   res.status(400).send("Bad request (no body)");
-    //   return;
-    // }
-    // // get the slug to revalidate from body
-    // const slugToRevalidate = body.slugToRevalidate;
-    // if (slugToRevalidate) {
-    //   await res.revalidate(`/blog/isr/${slugToRevalidate}`);
-    //   return res.json({ revalidated: true });
-    // }
-    // // this should be the actual path not a rewritten path
-    // // e.g. for "/blog/[slug]" this should be "/blog/post-1"
-    await res.revalidate(`/body/${req.body.slug}`);
-    return res.json({ revalidated: true });
+    const body = req.body;
+    console.log("body in console: " + body);
+
+    if (!body) {
+      res.status(400).send("Bad request (no body)");
+      return;
+    }
+
+    const slug = body.slug;
+    console.log("slug in console: " + slug);
+
+    if (slug) {
+      await res.revalidate(`/blog/isr/${slug}`);
+      return res.json({ revalidated: true });
+    }
   } catch (err) {
     // If there was an error, Next.js will continue
     // to show the last successfully generated page
