@@ -4,25 +4,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // // Check for secret to confirm this is a valid request
-  // if (req.query.secret !== process.env.NEXT_REVALIDATE_ROUTE) {
-  //   return res.status(401).json({ message: "Invalid token" });
-  // }
   console.log(req);
 
   // check for the POST request
-  // if (req.method !== "POST") {
-  //   return res
-  //     .status(400)
-  //     .json({ error: "Invalid HTTP method. Only POST requests are allowed." });
-  // }
+  if (req.method !== "POST") {
+    return res
+      .status(400)
+      .json({ error: "Invalid HTTP method. Only POST requests are allowed." });
+  }
 
   // check for the secret token
-  // if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
-  //   return res.status(401).json({ message: "Invalid token" });
-  // }
-  const body = req.body;
-  console.log(body);
+  if (
+    req.headers.revalidate_secret_token !== process.env.REVALIDATE_SECRET_TOKEN
+  ) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
 
   try {
     // check that body is not empty
@@ -38,7 +34,7 @@ export default async function handler(
     // }
     // // this should be the actual path not a rewritten path
     // // e.g. for "/blog/[slug]" this should be "/blog/post-1"
-    await res.revalidate(body.asPath);
+    await res.revalidate(`/body/${req.body.slug}`);
     return res.json({ revalidated: true });
   } catch (err) {
     // If there was an error, Next.js will continue
