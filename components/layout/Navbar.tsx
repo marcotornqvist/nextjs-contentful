@@ -1,6 +1,7 @@
 import { styled } from "@stitches/react";
 import { Container } from "pages";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const StyledNavbar = styled("nav", {
   paddingTop: "1.5rem",
@@ -16,15 +17,19 @@ export const StyledListItem = styled("li", {
 });
 
 const Navbar = () => {
+  const { asPath } = useRouter();
   function handleRevalidate() {
-    const result = fetch("/api/revalidate", {
+    fetch("/api/revalidate", {
       method: "POST",
       headers: {
-        secret: "1234",
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({ asPath }),
+      // headers: {
+      //   secret: "1234",
+      // },
     });
-
-    console.log(result);
   }
   return (
     <StyledNavbar>

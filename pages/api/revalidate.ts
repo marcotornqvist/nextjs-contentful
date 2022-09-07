@@ -21,13 +21,11 @@ export default async function handler(
   // if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
   //   return res.status(401).json({ message: "Invalid token" });
   // }
-
-  // console.log("Validation worked");
+  const body = req.body;
+  console.log(body);
 
   try {
     // check that body is not empty
-    // const body = req.body;
-    // console.log(body);
     // if (!body) {
     //   res.status(400).send("Bad request (no body)");
     //   return;
@@ -40,11 +38,7 @@ export default async function handler(
     // }
     // // this should be the actual path not a rewritten path
     // // e.g. for "/blog/[slug]" this should be "/blog/post-1"
-    await res.revalidate("/blog/isr/testing-this-validation-thing");
-    await res.revalidate("/blog/isr/why-its-called-football-and-not-soccer");
-    await res.revalidate("/blog/isr/painting-is-the-art-of-applying-paint");
-    await res.revalidate("/blog/isr/is-esport-really-a-sport");
-    await res.revalidate("/blog/isr/skating-like-tony-hawk");
+    await res.revalidate(body.asPath);
     return res.json({ revalidated: true });
   } catch (err) {
     // If there was an error, Next.js will continue
