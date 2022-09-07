@@ -16,6 +16,16 @@ export const StyledListItem = styled("li", {
 });
 
 const Navbar = () => {
+  function handleRevalidate() {
+    const result = fetch("/api/revalidate", {
+      method: "POST",
+      headers: {
+        secret: "1234",
+      },
+    });
+
+    console.log(result);
+  }
   return (
     <StyledNavbar>
       <Container>
@@ -50,6 +60,9 @@ const Navbar = () => {
               <a>ISR</a>
             </Link>
           </StyledListItem>
+          <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
+            Revalidate
+          </button>
         </StyledList>
       </Container>
     </StyledNavbar>

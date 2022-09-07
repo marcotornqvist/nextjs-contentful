@@ -26,6 +26,8 @@ export const getStaticPaths = async () => {
       }
   );
 
+  console.log(paths);
+
   // We'll pre-render only these paths at build time.
   // { fallback: blocking } will server-render pages
   // on-demand if the path doesn't exist.
@@ -68,15 +70,9 @@ interface IProps {
 }
 
 const BlogISR: FC<IProps> = ({ data, randomNumber }) => {
-  function handleRevalidate() {
-    fetch("/api/revalidate");
-  }
   return (
     <div>
       <Container>
-        <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
-          Revalidate
-        </button>
         <h1>{randomNumber}</h1>
         <br />
         <pre>{JSON.stringify(data, null, 2)}</pre>

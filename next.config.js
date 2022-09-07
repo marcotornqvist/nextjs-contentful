@@ -23,6 +23,7 @@ const nextConfig = (phase) => {
       CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN:
         process.env.CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN,
       CONTENTFUL_GRAPHQL_URL: process.env.CONTENTFUL_GRAPHQL_URL,
+      REVALIDATE_SECRET_TOKEN: process.env.REVALIDATE_SECRET_TOKEN,
     },
     images: {
       domains: ["images.ctfassets.net"], //Domain of image host

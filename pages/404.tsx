@@ -1,5 +1,4 @@
 import { Container } from "pages";
-import React from "react";
 
 const NotFound = () => {
   return (
