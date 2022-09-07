@@ -30,11 +30,14 @@ export default async function handler(
       return;
     }
 
-    const slug = await body.slug;
-    console.log("slug in console: " + slug);
+    console.log(req.body);
+    console.log(req.body.slug);
 
-    if (slug) {
-      await res.revalidate(`/blog/isr/${slug}`);
+    // const slug = await body.slug;
+    // console.log("slug in console: " + slug);
+
+    if (req.body.slug) {
+      await res.revalidate(`/blog/isr/${req.body.slug}`);
       return res.json({ revalidated: true });
     }
   } catch (err) {
