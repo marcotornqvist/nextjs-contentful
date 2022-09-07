@@ -26,7 +26,7 @@ export const getStaticPaths = async () => {
       }
   );
 
-  // console.log(paths);
+  console.log(paths);
 
   // We'll pre-render only these paths at build time.
   // { fallback: blocking } will server-render pages

@@ -65,9 +65,9 @@ const Navbar = () => {
               <a>ISR</a>
             </Link>
           </StyledListItem>
-          <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
+          {/* <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
             Revalidate
-          </button>
+          </button> */}
         </StyledList>
       </Container>
     </StyledNavbar>

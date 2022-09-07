@@ -4,7 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body.slug);
+  console.log(req);
 
   // check for the POST request
   if (req.method !== "POST") {
@@ -22,7 +22,7 @@ export default async function handler(
 
   try {
     // check that body is not empty
-    const body = req.body;
+    const body = await req.body;
     console.log("body in console: " + body);
 
     if (!body) {
@@ -30,7 +30,7 @@ export default async function handler(
       return;
     }
 
-    const slug = body.slug;
+    const slug = await body.slug;
     console.log("slug in console: " + slug);
 
     if (slug) {
