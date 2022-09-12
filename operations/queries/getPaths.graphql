@@ -1,0 +1,40 @@
+query GET_PATHS {
+  paths: pathsCollection(locale: "en") {
+    items {
+      source
+      destination
+    }
+  }
+  pathsFi: pathsCollection(locale: "fi") {
+    items {
+      source
+      destination
+    }
+  }
+}
+
+# query {
+#   landing: landingPageCollection {
+#     items {
+#       heroTitle
+#       body {
+#         json
+#       }
+#     }
+#   }
+#   landingFi: landingPageCollection(locale: "fi") {
+#     items {
+#       heroTitle
+#       body {
+#         json
+#       }
+#     }
+#   }
+#   paths: pathsCollection(locale: "en") {
+#     items {
+#       source
+#       sourceFi: source(locale: "fi")
+#       destination
+#     }
+#   }
+# }

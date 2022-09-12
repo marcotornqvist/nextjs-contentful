@@ -21,7 +21,8 @@ export default async function handler(
   }
 
   // FIXME: Payload doesn't include slug when a post is unpublished or deleted. Archiving and then unpublishing works, which is not too optimal.
-  // FIXME: Make it so that getStaticPaths also revalidates when a post is created or deleted. Now getStaticPaths doesn't recognise new posts.
+
+  // FIXME: Make it so that getStaticPaths also revalidates when a post is created or deleted. Now getStaticPaths doesn't recognise new posts. Maybe fallback of blocking actually works? Read about fallback blocking: https://github.com/vercel/next.js/discussions/20093. Discuss if this even is a problem in this project? Is there going to be dynamic pages such as nextjs blog/[slug] pages or just index.tsx/rest.tsx pages?
 
   try {
     // check that body is not empty

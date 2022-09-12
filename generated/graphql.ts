@@ -332,6 +332,7 @@ export type Blog = Entry & {
   body?: Maybe<BlogBody>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<BlogLinkingCollections>;
+  path?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   sys: Sys;
   test?: Maybe<Scalars['Int']>;
@@ -356,6 +357,12 @@ export type BlogBodyArgs = {
 /** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/blog) */
 export type BlogLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/blog) */
+export type BlogPathArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -425,6 +432,13 @@ export type BlogFilter = {
   body_exists?: InputMaybe<Scalars['Boolean']>;
   body_not_contains?: InputMaybe<Scalars['String']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  path?: InputMaybe<Scalars['String']>;
+  path_contains?: InputMaybe<Scalars['String']>;
+  path_exists?: InputMaybe<Scalars['Boolean']>;
+  path_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  path_not?: InputMaybe<Scalars['String']>;
+  path_not_contains?: InputMaybe<Scalars['String']>;
+  path_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   slug?: InputMaybe<Scalars['String']>;
   slug_contains?: InputMaybe<Scalars['String']>;
   slug_exists?: InputMaybe<Scalars['Boolean']>;
@@ -466,6 +480,8 @@ export type BlogLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum BlogOrder {
+  PathAsc = 'path_ASC',
+  PathDesc = 'path_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -480,6 +496,75 @@ export enum BlogOrder {
   TestDesc = 'test_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
+}
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/blog_subtext) */
+export type BlogSubtext = Entry & {
+  __typename?: 'BlogSubtext';
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<BlogSubtextLinkingCollections>;
+  sys: Sys;
+  text?: Maybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/blog_subtext) */
+export type BlogSubtextLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/blog_subtext) */
+export type BlogSubtextTextArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type BlogSubtextCollection = {
+  __typename?: 'BlogSubtextCollection';
+  items: Array<Maybe<BlogSubtext>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type BlogSubtextFilter = {
+  AND?: InputMaybe<Array<InputMaybe<BlogSubtextFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<BlogSubtextFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  sys?: InputMaybe<SysFilter>;
+  text?: InputMaybe<Scalars['String']>;
+  text_contains?: InputMaybe<Scalars['String']>;
+  text_exists?: InputMaybe<Scalars['Boolean']>;
+  text_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  text_not?: InputMaybe<Scalars['String']>;
+  text_not_contains?: InputMaybe<Scalars['String']>;
+  text_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type BlogSubtextLinkingCollections = {
+  __typename?: 'BlogSubtextLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type BlogSubtextLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum BlogSubtextOrder {
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TextAsc = 'text_ASC',
+  TextDesc = 'text_DESC'
 }
 
 export type ContentfulMetadata = {
@@ -507,6 +592,107 @@ export type ContentfulTag = {
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/electricity-contracts_order) */
+export type ElectricityContractsOrder = Entry & {
+  __typename?: 'ElectricityContractsOrder';
+  contentfulMetadata: ContentfulMetadata;
+  heroSubtitle?: Maybe<Scalars['String']>;
+  heroTitle?: Maybe<Scalars['String']>;
+  linkedFrom?: Maybe<ElectricityContractsOrderLinkingCollections>;
+  path?: Maybe<Scalars['String']>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/electricity-contracts_order) */
+export type ElectricityContractsOrderHeroSubtitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/electricity-contracts_order) */
+export type ElectricityContractsOrderHeroTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/electricity-contracts_order) */
+export type ElectricityContractsOrderLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/electricity-contracts_order) */
+export type ElectricityContractsOrderPathArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type ElectricityContractsOrderCollection = {
+  __typename?: 'ElectricityContractsOrderCollection';
+  items: Array<Maybe<ElectricityContractsOrder>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type ElectricityContractsOrderFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ElectricityContractsOrderFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<ElectricityContractsOrderFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  hero_subtitle?: InputMaybe<Scalars['String']>;
+  hero_subtitle_contains?: InputMaybe<Scalars['String']>;
+  hero_subtitle_exists?: InputMaybe<Scalars['Boolean']>;
+  hero_subtitle_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hero_subtitle_not?: InputMaybe<Scalars['String']>;
+  hero_subtitle_not_contains?: InputMaybe<Scalars['String']>;
+  hero_subtitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hero_title?: InputMaybe<Scalars['String']>;
+  hero_title_contains?: InputMaybe<Scalars['String']>;
+  hero_title_exists?: InputMaybe<Scalars['Boolean']>;
+  hero_title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hero_title_not?: InputMaybe<Scalars['String']>;
+  hero_title_not_contains?: InputMaybe<Scalars['String']>;
+  hero_title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  path?: InputMaybe<Scalars['String']>;
+  path_contains?: InputMaybe<Scalars['String']>;
+  path_exists?: InputMaybe<Scalars['Boolean']>;
+  path_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  path_not?: InputMaybe<Scalars['String']>;
+  path_not_contains?: InputMaybe<Scalars['String']>;
+  path_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type ElectricityContractsOrderLinkingCollections = {
+  __typename?: 'ElectricityContractsOrderLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type ElectricityContractsOrderLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum ElectricityContractsOrderOrder {
+  HeroSubtitleAsc = 'hero_subtitle_ASC',
+  HeroSubtitleDesc = 'hero_subtitle_DESC',
+  HeroTitleAsc = 'hero_title_ASC',
+  HeroTitleDesc = 'hero_title_DESC',
+  PathAsc = 'path_ASC',
+  PathDesc = 'path_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export type Entry = {
   contentfulMetadata: ContentfulMetadata;
@@ -634,6 +820,214 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']>;
 };
 
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/landing_page) */
+export type LandingPage = Entry & {
+  __typename?: 'LandingPage';
+  body?: Maybe<LandingPageBody>;
+  contentfulMetadata: ContentfulMetadata;
+  heroTitle?: Maybe<Scalars['String']>;
+  linkedFrom?: Maybe<LandingPageLinkingCollections>;
+  path?: Maybe<Paths>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/landing_page) */
+export type LandingPageBodyArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/landing_page) */
+export type LandingPageHeroTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/landing_page) */
+export type LandingPageLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/landing_page) */
+export type LandingPagePathArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type LandingPageBody = {
+  __typename?: 'LandingPageBody';
+  json: Scalars['JSON'];
+  links: LandingPageBodyLinks;
+};
+
+export type LandingPageBodyAssets = {
+  __typename?: 'LandingPageBodyAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type LandingPageBodyEntries = {
+  __typename?: 'LandingPageBodyEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type LandingPageBodyLinks = {
+  __typename?: 'LandingPageBodyLinks';
+  assets: LandingPageBodyAssets;
+  entries: LandingPageBodyEntries;
+};
+
+export type LandingPageCollection = {
+  __typename?: 'LandingPageCollection';
+  items: Array<Maybe<LandingPage>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type LandingPageFilter = {
+  AND?: InputMaybe<Array<InputMaybe<LandingPageFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<LandingPageFilter>>>;
+  body_contains?: InputMaybe<Scalars['String']>;
+  body_exists?: InputMaybe<Scalars['Boolean']>;
+  body_not_contains?: InputMaybe<Scalars['String']>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  hero_title?: InputMaybe<Scalars['String']>;
+  hero_title_contains?: InputMaybe<Scalars['String']>;
+  hero_title_exists?: InputMaybe<Scalars['Boolean']>;
+  hero_title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hero_title_not?: InputMaybe<Scalars['String']>;
+  hero_title_not_contains?: InputMaybe<Scalars['String']>;
+  hero_title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  path?: InputMaybe<CfPathsNestedFilter>;
+  path_exists?: InputMaybe<Scalars['Boolean']>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type LandingPageLinkingCollections = {
+  __typename?: 'LandingPageLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type LandingPageLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum LandingPageOrder {
+  HeroTitleAsc = 'hero_title_ASC',
+  HeroTitleDesc = 'hero_title_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/paths) */
+export type Paths = Entry & {
+  __typename?: 'Paths';
+  contentfulMetadata: ContentfulMetadata;
+  destination?: Maybe<Scalars['String']>;
+  linkedFrom?: Maybe<PathsLinkingCollections>;
+  source?: Maybe<Scalars['String']>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/paths) */
+export type PathsDestinationArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/paths) */
+export type PathsLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/nyb9we33lqco/content_types/paths) */
+export type PathsSourceArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type PathsCollection = {
+  __typename?: 'PathsCollection';
+  items: Array<Maybe<Paths>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type PathsFilter = {
+  AND?: InputMaybe<Array<InputMaybe<PathsFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<PathsFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  destination?: InputMaybe<Scalars['String']>;
+  destination_contains?: InputMaybe<Scalars['String']>;
+  destination_exists?: InputMaybe<Scalars['Boolean']>;
+  destination_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  destination_not?: InputMaybe<Scalars['String']>;
+  destination_not_contains?: InputMaybe<Scalars['String']>;
+  destination_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  source?: InputMaybe<Scalars['String']>;
+  source_contains?: InputMaybe<Scalars['String']>;
+  source_exists?: InputMaybe<Scalars['Boolean']>;
+  source_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  source_not?: InputMaybe<Scalars['String']>;
+  source_not_contains?: InputMaybe<Scalars['String']>;
+  source_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type PathsLinkingCollections = {
+  __typename?: 'PathsLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  landingPageCollection?: Maybe<LandingPageCollection>;
+};
+
+
+export type PathsLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type PathsLinkingCollectionsLandingPageCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum PathsOrder {
+  DestinationAsc = 'destination_ASC',
+  DestinationDesc = 'destination_DESC',
+  SourceAsc = 'source_ASC',
+  SourceDesc = 'source_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
@@ -642,7 +1036,15 @@ export type Query = {
   authorCollection?: Maybe<AuthorCollection>;
   blog?: Maybe<Blog>;
   blogCollection?: Maybe<BlogCollection>;
+  blogSubtext?: Maybe<BlogSubtext>;
+  blogSubtextCollection?: Maybe<BlogSubtextCollection>;
+  electricityContractsOrder?: Maybe<ElectricityContractsOrder>;
+  electricityContractsOrderCollection?: Maybe<ElectricityContractsOrderCollection>;
   entryCollection?: Maybe<EntryCollection>;
+  landingPage?: Maybe<LandingPage>;
+  landingPageCollection?: Maybe<LandingPageCollection>;
+  paths?: Maybe<Paths>;
+  pathsCollection?: Maybe<PathsCollection>;
 };
 
 
@@ -697,6 +1099,40 @@ export type QueryBlogCollectionArgs = {
 };
 
 
+export type QueryBlogSubtextArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryBlogSubtextCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<BlogSubtextOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<BlogSubtextFilter>;
+};
+
+
+export type QueryElectricityContractsOrderArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryElectricityContractsOrderCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<ElectricityContractsOrderOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ElectricityContractsOrderFilter>;
+};
+
+
 export type QueryEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -704,6 +1140,40 @@ export type QueryEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EntryFilter>;
+};
+
+
+export type QueryLandingPageArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryLandingPageCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<LandingPageOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<LandingPageFilter>;
+};
+
+
+export type QueryPathsArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryPathsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<PathsOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PathsFilter>;
 };
 
 export type Sys = {
@@ -775,6 +1245,27 @@ export type CfAuthorNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
+export type CfPathsNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfPathsNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfPathsNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  destination?: InputMaybe<Scalars['String']>;
+  destination_contains?: InputMaybe<Scalars['String']>;
+  destination_exists?: InputMaybe<Scalars['Boolean']>;
+  destination_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  destination_not?: InputMaybe<Scalars['String']>;
+  destination_not_contains?: InputMaybe<Scalars['String']>;
+  destination_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  source?: InputMaybe<Scalars['String']>;
+  source_contains?: InputMaybe<Scalars['String']>;
+  source_exists?: InputMaybe<Scalars['Boolean']>;
+  source_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  source_not?: InputMaybe<Scalars['String']>;
+  source_not_contains?: InputMaybe<Scalars['String']>;
+  source_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
 export type Get_Blog_PathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -787,6 +1278,11 @@ export type Get_BlogsQueryVariables = Exact<{
 
 
 export type Get_BlogsQuery = { __typename?: 'Query', blogCollection?: { __typename?: 'BlogCollection', items: Array<{ __typename?: 'Blog', title?: string | null, slug?: string | null, test?: number | null, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null, description?: string | null } | null, author?: { __typename?: 'Author', name?: string | null, email?: string | null, profileImage?: { __typename?: 'Asset', title?: string | null, url?: string | null, description?: string | null } | null, sys: { __typename?: 'Sys', id: string } } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
+export type Get_PathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Get_PathsQuery = { __typename?: 'Query', paths?: { __typename?: 'PathsCollection', items: Array<{ __typename?: 'Paths', source?: string | null, destination?: string | null } | null> } | null, pathsFi?: { __typename?: 'PathsCollection', items: Array<{ __typename?: 'Paths', source?: string | null, destination?: string | null } | null> } | null };
 
 export type Get_Single_BlogQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -838,6 +1334,22 @@ export const Get_BlogsDocument = gql`
   }
 }
     `;
+export const Get_PathsDocument = gql`
+    query GET_PATHS {
+  paths: pathsCollection(locale: "en") {
+    items {
+      source
+      destination
+    }
+  }
+  pathsFi: pathsCollection(locale: "fi") {
+    items {
+      source
+      destination
+    }
+  }
+}
+    `;
 export const Get_Single_BlogDocument = gql`
     query GET_SINGLE_BLOG($slug: String!) {
   blogCollection(where: {slug: $slug}) {
@@ -882,6 +1394,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GET_BLOGS(variables?: Get_BlogsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<Get_BlogsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<Get_BlogsQuery>(Get_BlogsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GET_BLOGS', 'query');
+    },
+    GET_PATHS(variables?: Get_PathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<Get_PathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<Get_PathsQuery>(Get_PathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GET_PATHS', 'query');
     },
     GET_SINGLE_BLOG(variables: Get_Single_BlogQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<Get_Single_BlogQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<Get_Single_BlogQuery>(Get_Single_BlogDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GET_SINGLE_BLOG', 'query');

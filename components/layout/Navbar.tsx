@@ -1,7 +1,8 @@
 import { styled } from "@stitches/react";
 import { Container } from "pages";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import TranslatedLink from "./TranslatedLink";
 
 const StyledNavbar = styled("nav", {
   paddingTop: "1.5rem",
@@ -17,19 +18,20 @@ export const StyledListItem = styled("li", {
 });
 
 const Navbar = () => {
-  const { asPath } = useRouter();
-  function handleRevalidate() {
-    fetch("/api/revalidate", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      // headers: {
-      //   secret: "1234",
-      // },
-    });
-  }
+  const router = useRouter();
+
+  // function handleRevalidate() {
+  //   fetch("/api/revalidate", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     // headers: {
+  //     //   secret: "1234",
+  //     // },
+  //   });
+  // }
   return (
     <StyledNavbar>
       <Container>
@@ -64,9 +66,17 @@ const Navbar = () => {
               <a>ISR</a>
             </Link>
           </StyledListItem>
-          <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
+          <StyledListItem>
+            <Link href="/landing">
+              <a>ISR</a>
+            </Link>
+          </StyledListItem>
+          {/* <button style={{ marginBottom: "1.5rem" }} onClick={handleRevalidate}>
             Revalidate
-          </button>
+          </button> */}
+          <TranslatedLink href="/landing" lang="fi">
+            <a>Suomi</a>
+          </TranslatedLink>
         </StyledList>
       </Container>
     </StyledNavbar>

@@ -1,5 +1,6 @@
-require("dotenv").config();
-const { createClient } = require("contentful-management");
+import * as dotenv from "dotenv";
+dotenv.config();
+import { createClient } from "contentful-management";
 
 // This file is for codegen
 const contentfulEnvironment = async () => {
