@@ -17,13 +17,9 @@ cp .env.example .env
 npm run dev # will also generate types with codegen
 ```
 
-Open [http://localhost:3000/graphql](http://localhost:3000/graphql) for GraphQL version.
+Open [http://localhost:3000/graphql](http://localhost:3000) for GraphQL version.
 
 Open [http://localhost:3000/rest](http://localhost:3000/rest) for REST version.
-
-REST page code in: pages/rest
-
-GraphQL page code in: pages/graphql
 
 <br/>
 
